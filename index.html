@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Dofus - V0.1</title>
+    <style>
+        body {
+            background-color: #2c2c2c; /* Fond sombre */
+            color: #f0ead6; /* Texte beige */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .game-container {
+            background-color: #4a4538; /* Couleur pierre Dofus */
+            border: 4px solid #2a241a;
+            padding: 20px;
+            border-radius: 8px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .xp-container {
+            background: #1a1a1a;
+            border: 2px solid #7a735e;
+            height: 25px;
+            border-radius: 5px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #xp-bar {
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            height: 100%;
+            width: 0%;
+            transition: width 0.2s;
+        }
+
+        .btn-combat {
+            background-color: #6d1a1a; /* Rouge combat */
+            color: white;
+            border: 2px solid #ffcc00;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+
+        .btn-combat:hover { background-color: #8e2121; }
+        .btn-combat:active { transform: scale(0.98); }
+
+        .inventory {
+            margin-top: 20px;
+            background: #3a352a;
+            padding: 10px;
+            border: 1px inset #2a241a;
+        }
+
+        .log { font-size: 0.9em; color: #ffcc00; margin-top: 10px; height: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h2>Idle Dofus <small>V0.1</small></h2>
+        
+        <div id="level-display">Niveau 1</div>
+        <div class="xp-container">
+            <div id="xp-bar"></div>
+        </div>
+        <div id="xp-text" style="font-size: 0.8em;">0 / 100 XP</div>
+
+        <hr style="border: 1px solid #2a241a; margin: 20px 0;">
+
+        <button class="btn-combat" onclick="fight()">Combattre un Bouftou</button>
+        
+        <div id="combat-log" class="log"></div>
+
+        <div class="inventory">
+            <strong>Inventaire</strong><br>
+            Laine de Bouftou : <span id="item-count">0</span>
+        </div>
+    </div>
+
+    <script>
+        // État du jeu (Data)
+        let xp = 0;
+        let xpNextLevel = 100;
+        let level = 1;
+        let items = 0;
+
+        function fight() {
+            // Logique de l'XP
+            let gainXp = 25;
+            xp += gainXp;
+            
+            // Logique du Drop (50% de chance)
+            let logMsg = "+ " + gainXp + " XP";
+            if (Math.random() > 0.5) {
+                items++;
+                logMsg += " & 1 Laine !";
+            }
+            
+            // Passage de niveau
+            if (xp >= xpNextLevel) {
+                level++;
+                xp = 0;
+                xpNextLevel = Math.floor(xpNextLevel * 1.5);
+                alert("Bravo ! Niveau " + level + " atteint !");
+            }
+
+            updateUI(logMsg);
+        }
+
+        function updateUI(msg) {
+            document.getElementById('xp-bar').style.width = (xp / xpNextLevel * 100) + "%";
+            document.getElementById('xp-text').innerText = xp + " / " + xpNextLevel + " XP";
+            document.getElementById('level-display').innerText = "Niveau " + level;
+            document.getElementById('item-count').innerText = items;
+            document.getElementById('combat-log').innerText = msg;
+        }
+    </script>
+</body>
+</html>

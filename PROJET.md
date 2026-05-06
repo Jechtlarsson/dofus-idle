@@ -431,7 +431,7 @@ MA DEMANDE :
 
 ## PROCHAINES ÉTAPES (dans l'ordre)
 
-- [ ] **ÉTAPE 1 :** Créer le repo GitHub et y déposer ce PROJET.md
+- [x] **ÉTAPE 1 :** Créer le repo GitHub et y déposer ce PROJET.md
 - [ ] **ÉTAPE 2 :** Générer le composant React V0.1 complet (via ChatGPT/Gemini)
 - [ ] **ÉTAPE 3 :** Tester dans Claude artifact — valider les 4 vues
 - [ ] **ÉTAPE 4 :** Corriger les bugs visuels et de logique (avec Claude)
